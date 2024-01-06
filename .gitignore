@@ -1,5 +1,6 @@
-.vscode
+.devcontainer
 .docker
+.vscode
 *.pyc
 docker/web/db.sqlite3
 docker/data/
