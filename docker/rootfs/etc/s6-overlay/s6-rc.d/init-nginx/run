@@ -1,14 +1,14 @@
 #!/command/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Home Assistant Community Add-on: grafana
+# Home Assistant Community Add-on: NSPanel Manager
 # Configures NGINX
 # ==============================================================================
 declare port
 declare certfile
-declare grafana_user
+declare nspanelmanager_user
 declare ingress_entry
-declare ingress_interface
+# declare ingress_interface
 declare keyfile
 
 
@@ -31,8 +31,8 @@ if bashio::var.has_value "${port}"; then
     sed -i "s#%%ingress_entry%%#${ingress_entry}#g" /etc/nginx/servers/direct.conf
 fi
 
-grafana_user='admin'
+nspanelmanager_user='admin'
 if bashio::config.has_value 'grafana_ingress_user'; then
-    grafana_user=$(bashio::config 'grafana_ingress_user')
+    nspanelmanager_user=$(bashio::config 'grafana_ingress_user')
 fi
-sed -i "s/%%grafana_user%%/${grafana_user}/g" /etc/nginx/servers/ingress.conf
+sed -i "s/%%nspanelmanager_user%%/${nspanelmanager_user}/g" /etc/nginx/servers/ingress.conf
