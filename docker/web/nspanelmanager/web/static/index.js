@@ -69,7 +69,7 @@ function rebootNSPanel(mac) {
 }
 
 function updateNSPanelsWarnings() {
-  $.get("/api/get_nspanels_warnings", (data) => {
+  $.get("api/get_nspanels_warnings", (data) => {
     data.panels.forEach((panel) => {
       if (!(panel.nspanel.mac in panel_warnings)) {
         panel_warnings[panel.nspanel.mac] = {

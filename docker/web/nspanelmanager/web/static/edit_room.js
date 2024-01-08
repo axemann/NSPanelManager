@@ -53,7 +53,7 @@ function populate_add_new_light_dialog() {
   $("#add_new_light_options").hide();
   $("#add_new_light_loader").show();
 
-  $.get("/api/get_all_available_lights", function (data) {
+  $.get("api/get_all_available_lights", function (data) {
     console.log(data);
     $("#add_new_light_errors").html("");
     $("#add_new_light_options").html("");
@@ -209,7 +209,7 @@ function edit_light(light_id) {
   $("#modal-add-light-options-inputs").hide();
   $("#modal-add-light-options").addClass("is-active");
 
-  $.get("/api/get_light_config/" + light_id, function (result) {
+  $.get("api/get_light_config/" + light_id, function (result) {
     if (result.type == "openhab") {
       $("#openhab_light_options").show();
 
@@ -219,7 +219,7 @@ function edit_light(light_id) {
       $("#openhab_color_temperature_channel_name").find("option").remove();
       $("#openhab_RGB_channel_name").find("option").remove();
 
-      $.get("/api/get_all_available_lights", function (data) {
+      $.get("api/get_all_available_lights", function (data) {
         data.openhab_lights.forEach(function (light) {
           if (light.label == result.openhab_name) {
             light.items.forEach((item) => {
