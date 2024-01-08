@@ -126,7 +126,7 @@ public:
   // Indicates Whether or not LittleFS was mounted or not.
   bool littlefs_mount_successfull;
 
-  /// @brief Should we report time in farenheit or celcius? True = farenheit, false = Celcius
+  /// @brief Should we report time in Fahrenheit or Celsius? True = Fahrenheit, false = Celsius
   bool use_farenheit;
 };
 
