@@ -2,15 +2,19 @@
 
 name: "NSPanel Manager"
 description: "Container for Sonoff NSPanel management with a simple and intuitive UI"
-version: 0.1.25
-image: docker.io/nspanelmanager/nspanelmanager-{arch}
+version: 0.2.0
+# image: docker.io/nspanelmanager/nspanelmanager-{arch}
 slug: nspanelmanager
 url: https://nspanelmanager.com
 webui: http://[HOST]:[PORT:8000]/
 panel_icon: mdi:fit-to-screen
-# ports:
-#   8000/tcp: 8000
-#   8001/tcp: 8001
+# panel_title: "NSPanel Manager"
+ingress: true
+# ingress_port: 1337
+ingress_stream: true
+ports:
+  8000/tcp: 8000
+  8001/tcp: 8001
 environment:
   IS_HOME_ASSISTANT_ADDON: "true"
 init: false
@@ -21,5 +25,3 @@ arch:
   - armhf
   - armv7
   - i386
-ingress: true
-ingress_port: 1337

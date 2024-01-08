@@ -1,11 +1,14 @@
 #!/command/with-contenv bashio
 # ==============================================================================
+# Home Assistant Community Add-on: NSPanel Manager
 # Runs the Nginx daemon
 # ==============================================================================
 
-# Wait for grafana to become available
-# bashio::net.wait_for 3000
+# Wait for NSPanel Manager to become available
+bashio::net.wait_for 8000
 
 bashio::log.info "Starting NGINX..."
+
+# nginx -T
 
 exec nginx
