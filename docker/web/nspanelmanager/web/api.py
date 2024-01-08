@@ -34,7 +34,7 @@ def restart_mqtt_manager():
     mqttmanager_env["HOME_ASSISTANT_TOKEN"] = get_setting_with_default("home_assistant_token", "")
     mqttmanager_env["OPENHAB_ADDRESS"] = get_setting_with_default("openhab_address", "")
     mqttmanager_env["OPENHAB_TOKEN"] = get_setting_with_default("openhab_token", "")
-    subprocess.Popen(["/usr/local/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
+    subprocess.Popen(["/usr/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
 
 
 def get_file_md5sum(filename):
@@ -128,7 +128,7 @@ def get_nspanels_warnings(request):
             if panel == nspanel:
                 continue
             elif panel.friendly_name == nspanel.friendly_name:
-                panel_info["warnings"] += "Two or more panels exists with the same name. This may have cunintended consequences\n"
+                panel_info["warnings"] += "Two or more panels exists with the same name. This may have unintended consequences\n"
                 break
         if nspanel.md5_firmware != md5_firmware or nspanel.md5_data_file != md5_data_file:
             panel_info["warnings"] += "Firmware update available.\n"
@@ -278,7 +278,7 @@ def register_nspanel(request):
 def delete_panel(request, panel_id: int):
     NSPanel.objects.get(id=panel_id).delete()
     restart_mqtt_manager()
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def get_nspanel_config(request):

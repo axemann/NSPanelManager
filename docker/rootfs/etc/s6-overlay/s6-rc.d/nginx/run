@@ -4,9 +4,11 @@
 # Runs the Nginx daemon
 # ==============================================================================
 
-# Wait for grafana to become available
+# Wait for NSPanel Manager to become available
 bashio::net.wait_for 8000
 
 bashio::log.info "Starting NGINX..."
+
+# nginx -T
 
 exec nginx

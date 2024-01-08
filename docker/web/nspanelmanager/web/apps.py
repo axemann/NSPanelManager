@@ -22,7 +22,7 @@ def start_mqtt_manager():
     mqttmanager_env["HOME_ASSISTANT_TOKEN"] = get_setting_with_default("home_assistant_token", "")
     mqttmanager_env["OPENHAB_ADDRESS"] = get_setting_with_default("openhab_address", "")
     mqttmanager_env["OPENHAB_TOKEN"] = get_setting_with_default("openhab_token", "")
-    subprocess.Popen(["/usr/local/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
+    subprocess.Popen(["/usr/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
 
 
 class WebConfig(AppConfig):

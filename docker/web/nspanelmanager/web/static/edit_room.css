@@ -13,7 +13,7 @@
 }
 
 #nspanel_room_view {
-    background-image: url('/static/panel_views/nspanel_room_view.png');
+    background-image: url('panel_views/nspanel_room_view.png');
     position: relative;
 }
 

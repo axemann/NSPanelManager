@@ -36,7 +36,7 @@ def restart_mqtt_manager():
     mqttmanager_env["HOME_ASSISTANT_TOKEN"] = get_setting_with_default("home_assistant_token", "")
     mqttmanager_env["OPENHAB_ADDRESS"] = get_setting_with_default("openhab_address", "")
     mqttmanager_env["OPENHAB_TOKEN"] = get_setting_with_default("openhab_token", "")
-    subprocess.Popen(["/usr/local/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
+    subprocess.Popen(["/usr/bin/python", "./mqtt_manager.py"], cwd="/usr/src/app/", env=mqttmanager_env)
 
 
 def index(request):
@@ -127,7 +127,7 @@ def save_new_room(request):
     new_room.friendly_name = request.POST['friendly_name']
     new_room.save()
     restart_mqtt_manager()
-    return redirect('edit_room', room_id=new_room.id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=new_room.id)
 
 
 def delete_room(request, room_id: int):
@@ -150,7 +150,7 @@ def update_room_form(request, room_id: int):
     room.friendly_name = request.POST['friendly_name']
     room.save()
     restart_mqtt_manager()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 
 def edit_nspanel(request, panel_id: int):
@@ -256,13 +256,13 @@ def save_panel_settings(request, panel_id: int):
     set_nspanel_setting_value(panel_id, "temperature_calibration", float(request.POST["temperature_calibration"]))
     set_nspanel_setting_value(panel_id, "default_page", request.POST["default_page"])
     panel.save()
-    return redirect('edit_nspanel', panel_id)
+    return redirect(request.META.get('HTTP_REFERER'), panel_id)
 
 
 def remove_light_from_room(request, room_id: int, light_id: int):
     Light.objects.filter(id=light_id).delete()
     restart_mqtt_manager()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 
 def add_light_to_room(request, room_id: int):
@@ -325,7 +325,7 @@ def add_light_to_room(request, room_id: int):
 
     newLight.save()
     restart_mqtt_manager()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 def add_scene_to_room(request, room_id: int):
     room = Room.objects.filter(id=room_id).first()
@@ -337,21 +337,21 @@ def add_scene_to_room(request, room_id: int):
     new_scene.room = room
     new_scene.save()
     restart_mqtt_manager()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 def delete_scene(request, scene_id: int):
     scene = Scene.objects.get(id=scene_id)
     if scene:
         scene.delete()
         restart_mqtt_manager()
-    return redirect('edit_room', room_id=scene.room.id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=scene.room.id)
 
 def delete_global_scene(request, scene_id: int):
     scene = Scene.objects.get(id=scene_id)
     if scene:
         scene.delete()
         restart_mqtt_manager()
-    return redirect('settings')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def add_scene_to_global(request):
     if request.POST["edit_scene_id"].strip() != "" and int(request.POST["edit_scene_id"]) >= 0:
@@ -362,11 +362,11 @@ def add_scene_to_global(request):
     new_scene.room = None
     new_scene.save()
     restart_mqtt_manager()
-    return redirect('settings')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def add_light_to_room_view(request, room_id: int):
     if "light_id" not in request.POST:
-        return redirect('edit_room', room_id=room_id)
+        return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
     room = Room.objects.filter(id=room_id).first()
     light_position = int(request.POST["position"])
     existing_light_at_position = Light.objects.filter(room=room, room_view_position=light_position).first()
@@ -376,7 +376,7 @@ def add_light_to_room_view(request, room_id: int):
     new_light = Light.objects.filter(id=int(request.POST["light_id"])).first()
     new_light.room_view_position = light_position
     new_light.save()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 
 def remove_light_from_room_view(request, room_id: int):
@@ -387,7 +387,7 @@ def remove_light_from_room_view(request, room_id: int):
     if existing_light_at_position != None:
         existing_light_at_position.room_view_position = 0
         existing_light_at_position.save()
-    return redirect('edit_room', room_id=room_id)
+    return redirect(request.META.get('HTTP_REFERER'), room_id=room_id)
 
 
 def settings_page(request):
@@ -476,7 +476,7 @@ def save_settings(request):
     set_setting_value(name="max_live_log_messages", value=request.POST["max_live_log_messages"])
     # Settings saved, restart mqtt_manager
     restart_mqtt_manager()
-    return redirect('settings')
+    return redirect(request.META.get('HTTP_REFERER'))
 
     # TODO: Make exempt only when Debug = true
 
@@ -488,7 +488,7 @@ def save_new_firmware(request):
         fs = FileSystemStorage()
         fs.delete("firmware.bin")
         fs.save("firmware.bin", uploaded_file)
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 # TODO: Make exempt only when Debug = true
@@ -499,7 +499,7 @@ def save_new_data_file(request):
         fs = FileSystemStorage()
         fs.delete("data_file.bin")
         fs.save("data_file.bin", uploaded_file)
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 @csrf_exempt
 def save_new_merged_flash(request):
@@ -508,7 +508,7 @@ def save_new_merged_flash(request):
         fs = FileSystemStorage()
         fs.delete("merged_flash.bin")
         fs.save("merged_flash.bin", uploaded_file)
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 # TODO: Make exempt only when Debug = true
 
 def get_client_ip(request):
@@ -532,7 +532,7 @@ def save_new_tft_file(request):
         fs = FileSystemStorage()
         fs.delete(filename)
         fs.save(filename, uploaded_file)
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def download_firmware(request):

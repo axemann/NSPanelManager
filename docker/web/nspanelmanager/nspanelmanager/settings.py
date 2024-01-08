@@ -40,7 +40,8 @@ if SECRET_KEY.strip() == "":
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.30.32.2', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 
 # Application definition
