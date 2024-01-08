@@ -1,4 +1,6 @@
-FROM python:latest
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-python:latest
+
+FROM ${BUILD_FROM}
 
 # Environment variables
 ENV \
