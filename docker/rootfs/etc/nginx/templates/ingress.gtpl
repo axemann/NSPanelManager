@@ -9,6 +9,8 @@ server {
     proxy_set_header X-HA-Ingress "YES";
 
     location / {
+        absolute_redirect off;
+
         allow   172.30.32.2;
         allow   127.0.0.1;
         deny    all;
