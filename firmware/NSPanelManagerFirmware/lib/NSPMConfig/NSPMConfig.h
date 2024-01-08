@@ -79,7 +79,7 @@ public:
 
   /// @brief The upload baud rate for the serial connection when uploading a new TFT file
   uint32_t tft_upload_baud;
-  /// @brief Wether or not to use the "v1.2" protcol or the v1.0
+  /// @brief Whether or not to use the "v1.2" protcol or the v1.0
   bool use_new_upload_protocol;
 
   /// @brief MD5 checksum for currently installed firmware.
@@ -123,7 +123,7 @@ public:
   // @brief The temperature calibration in degrees
   float temperature_calibration;
 
-  // Indicates wether or not LittleFS was mounted or not.
+  // Indicates Whether or not LittleFS was mounted or not.
   bool littlefs_mount_successfull;
 
   /// @brief Should we report time in farenheit or celcius? True = farenheit, false = Celcius

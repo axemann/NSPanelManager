@@ -98,11 +98,11 @@ private:
   static void _clearSerialBuffer(NSPanelCommand *cmd);
   static void _clearSerialBuffer();
   static inline bool _writeCommandsToSerial;
-  /// @brief Flag indicating wether or not a TFT update is ongoing
+  /// @brief Flag indicating whether or not a TFT update is ongoing
   bool _isUpdating;
   /// @brief If updating, contains the % done of the update
   uint8_t _update_progress;
-  /// @brief A boolean indicating wether or not we have received the "NSPM"-text from the panel once it started.
+  /// @brief A boolean indicating whether or not we have received the "NSPM"-text from the panel once it started.
   bool _has_received_nspm;
 };
 

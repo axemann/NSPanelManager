@@ -17,7 +17,7 @@ class WebManager {
 public:
   void init(const char *nspmFirmwareVersion);
   static void doRebootAt(AsyncWebServerRequest *request);
-  /// @brief Indicate wether a reboot should be done or not
+  /// @brief Indicate whether a reboot should be done or not
   /// @return True = time to reboot
   bool doReboot();
   static WebManager *instance;
