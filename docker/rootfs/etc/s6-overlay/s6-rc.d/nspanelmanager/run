@@ -11,12 +11,12 @@ fi
 cd /usr/src/app/nspanelmanager || exit
 
 echo "Running migrations..."
-/usr/bin/python ./manage.py migrate
-# $(which python) ./manage.py migrate
+# /usr/bin/python ./manage.py migrate
+$(which python) ./manage.py migrate
 
 echo "Starting server"
-/usr/bin/python ./manage.py runserver 0.0.0.0:8000
-# $(which python) ./manage.py runserver 0.0.0.0:8000
+# /usr/bin/python ./manage.py runserver 0.0.0.0:8000
+$(which python) ./manage.py runserver 0.0.0.0:8000
 
 echo "Stopping all python applications"
 for app in $(pgrep python); do
