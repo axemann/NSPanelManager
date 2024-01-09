@@ -8,9 +8,7 @@ slug: nspanelmanager
 url: https://nspanelmanager.com
 webui: http://[HOST]:[PORT:8000]/
 panel_icon: mdi:fit-to-screen
-# panel_title: "NSPanel Manager"
 ingress: true
-# ingress_port: 1337
 ingress_stream: true
 ports:
   8000/tcp: 8000
