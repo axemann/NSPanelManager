@@ -4,7 +4,6 @@
 # Home Assistant Community Add-on: NSPanel Manager
 # Runs the NSPanel Manager dashboard app
 # ==============================================================================
-echo "$TZ"
 if [ "$TZ" != "" ]; then
 	echo "Setting /etc/timezone to $TZ"
 	echo "$TZ" >/etc/timezone
