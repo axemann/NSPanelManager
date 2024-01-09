@@ -20,5 +20,3 @@ RUN pip install -r requirements.txt --break-system-packages
 RUN echo "alias ll='ls -lah --color=auto'" >> /etc/bash/bashrc
 
 EXPOSE 8000
-# CMD ["/bin/bash", "./run.sh"]
-# CMD ["/init"]
